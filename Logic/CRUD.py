@@ -1,0 +1,55 @@
+from Domain.rezervare import creeazaRezervare, getId
+
+def adaugaRezervare(id, nume, clasa, pret, checkin, lista):
+    """
+    adauga o rezervare intr-o lista
+    :param id:string
+    :param nume:string
+    :param clasa:string
+    :param pret:float
+    :param checkin:string
+    :return:lista ce contine rezervarile vechi plus noua rezervare
+    """
+    rezervare = creeazaRezervare(id, nume, clasa, pret, checkin)
+    return lista + [rezervare]
+
+def getById(id, lista):
+    '''
+    da rezervarea cu id-ul dat dintr-o lista
+    :param id: string
+    :param lista:lista
+    :return: rezervarea cu id-ul dat
+    '''
+    for rezervare in lista:
+        if getId(rezervare) == id:
+            return rezervare
+    return None
+
+def stergeRezervare(id, lista):
+    """
+    Sterge o rezervare din lista.
+    :param id:string
+    :param lista:lista de rezervari
+    :return:lista fara rezervarea stearsa
+    """
+    return [rezervare for rezervare in lista if getId(rezervare) != id]
+
+def modificaRezervare(id, nume, clasa, pret, checkin, lista):
+    """
+    modifica o rezervare dupa id
+    :param id: string
+    :param nume: string
+    :param clasa: string
+    :param pret: float
+    :param checkin: string
+    :param lista: lista de rezervari
+    :return: lista cu rezervarea cu id-ul dat , modificata
+    """
+    listaNoua = []
+    for rezervare in lista:
+        if getId(rezervare) == id:
+            rezervareNoua = creeazaRezervare(id, nume, clasa, pret, checkin)
+            listaNoua.append(rezervareNoua)
+        else:
+            listaNoua.append(rezervare)
+    return listaNoua
