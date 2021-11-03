@@ -23,8 +23,6 @@ def runMenu(lista):
         comenzi = input("Introduceti comenzile separate prin ';', iar detaliitle pentru fiecare comanda prin ',': ")
         if comenzi == "stop":
             break
-        if comenzi == "help":
-            printHelp()
 
         comenzi = comenzi.split(";")
 
