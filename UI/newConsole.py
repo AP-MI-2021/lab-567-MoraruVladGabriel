@@ -38,19 +38,16 @@ def runMenu(lista):
                     lista = adaugaRezervare(lista_comanda[1], lista_comanda[2], lista_comanda[3], lista_comanda[4], lista_comanda[5], lista)
                 except ValueError as ve:
                     print("Erpare: {}".format(ve))
-                    return lista
             elif lista_comanda[0] == "delete":
                 try:
                     lista = stergeRezervare(lista_comanda[1], lista)
                 except ValueError as ve:
                     print("Eroare: {}".format(ve))
-                    return lista
             elif lista_comanda[0] == "update":
                 try:
                     lista = modificaRezervare(lista_comanda[1], lista_comanda[2], lista_comanda[3], lista_comanda[4], lista_comanda[5], lista)
                 except ValueError as ve:
                     print("Eroare: {}".format(ve))
-                    return lista
             elif lista_comanda[0] == "showall":
                 showAll(lista)
             elif lista_comanda[0] == "help":
