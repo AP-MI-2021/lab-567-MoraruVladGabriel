@@ -16,6 +16,7 @@ def printHelp():
         "In aceste meniu comenzile se dau separate prin ; si datele vor fi separate prin , ."
         "Un exemplu de comanda ar putea fi: add,1,andrei,business,100,da;showall"
     )
+
 def runMenu(lista):
 
     while True:

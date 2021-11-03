@@ -13,7 +13,7 @@ def adaugaRezervare(id, nume, clasa, pret, checkin, lista):
     if getById(id, lista) is not None:
         raise ValueError("Id-ul exista deja!")
     rezervare = creeazaRezervare(id, nume, clasa, pret, checkin)
-    if getPret(rezervare) < 100:
+    if getPret(rezervare) < 0:
         raise ValueError("Pretul este negativ!")
     return lista + [rezervare]
 
