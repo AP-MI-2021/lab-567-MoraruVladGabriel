@@ -5,7 +5,7 @@ def printMenu():
     print("Comanda help: Cere ajutor.")
     print("Comanda add: Adauga rezervare: id, nume, clasa(economy/economy plus/business), pret, checkin(da/nu)")
     print("Comanda delete: Stergere rezervare: id")
-    print("Comanda update: Modifica o rezervare: id ")
+    print("Comanda update: Modifica o rezervare: id, nume, clasa(economy/economy plus/business), pret, checkin(da/nu) ")
     print("Comanda showall: Afiseaza toate rezervarile.")
     print("Comanda stop: Oprire program.")
 
