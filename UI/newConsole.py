@@ -35,7 +35,8 @@ def runMenu(lista):
                 lista_comanda.append(detalii)
             if lista_comanda[0] == "add":
                 try:
-                    lista = adaugaRezervare(lista_comanda[1], lista_comanda[2], lista_comanda[3], lista_comanda[4], lista_comanda[5], lista)
+                    pret = float(lista_comanda[4])
+                    lista = adaugaRezervare(lista_comanda[1], lista_comanda[2], lista_comanda[3], pret, lista_comanda[5], lista)
                 except ValueError as ve:
                     print("Erpare: {}".format(ve))
             elif lista_comanda[0] == "delete":
