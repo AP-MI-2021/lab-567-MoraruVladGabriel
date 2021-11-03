@@ -42,9 +42,9 @@ def uiModificaRezervare(lista):
     try:
         id = input("Dati id-ul rezervarii de modificat: ")
         nume = input("Dati noul nume: ")
-        clasa = input("Dati noua clasa: ")
+        clasa = input("Dati noua clasa(economy/economy plus/business): ")
         pret = float(input("Dati noul pret: "))
-        checkin = input("Dati noul checkin: ")
+        checkin = input("Dati noul checkin(da/nu): ")
         return modificaRezervare(id, nume, clasa, pret, checkin, lista)
     except ValueError as ve:
         print("Eroare: {}".format(ve))
