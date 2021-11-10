@@ -2,7 +2,7 @@ from Tests.testCRUD import testAdaugaRezervare, testStergeRezervare, testModific
 from Tests.testDomain import testRezervare
 from Tests.testFunctionalitati import testaMajoClasa, testIeftinire, testDetermPretMaximClasa, testOrdonareDescDupaPret\
     , testSumaPretNume
-
+from Tests.testUndoRedo import testUndoRedo
 
 def runAllTests():
     testRezervare()
@@ -14,3 +14,4 @@ def runAllTests():
     testDetermPretMaximClasa()
     testOrdonareDescDupaPret()
     testSumaPretNume()
+    testUndoRedo()

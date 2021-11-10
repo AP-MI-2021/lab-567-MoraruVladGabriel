@@ -1,6 +1,6 @@
 from Domain.rezervare import creeazaRezervare, getId, getPret
 
-def adaugaRezervare(id, nume, clasa, pret, checkin, lista):
+def adaugaRezervare(id, nume, clasa, pret, checkin, lista, undoLista = None, redoLista = None):
     """
     adauga o rezervare intr-o lista
     :param id:string
@@ -12,6 +12,9 @@ def adaugaRezervare(id, nume, clasa, pret, checkin, lista):
     """
     if getById(id, lista) is not None:
         raise ValueError("Id-ul exista deja!")
+    if undoLista is not None and redoLista is not None:
+        undoLista.append(lista)
+        redoLista.clear()
     rezervare = creeazaRezervare(id, nume, clasa, pret, checkin)
     if getPret(rezervare) < 0:
         raise ValueError("Pretul este negativ!")
@@ -29,7 +32,7 @@ def getById(id, lista):
             return rezervare
     return None
 
-def stergeRezervare(id, lista):
+def stergeRezervare(id, lista, undoLista = None, redoLista = None):
     """
     Sterge o rezervare din lista.
     :param id:string
@@ -38,9 +41,12 @@ def stergeRezervare(id, lista):
     """
     if getById(id, lista) is None:
         raise ValueError("Nu exista nici o rezervare cu id-ul dat.")
+    if undoLista is not None and redoLista is not None:
+        undoLista.append(lista)
+        redoLista.clear()
     return [rezervare for rezervare in lista if getId(rezervare) != id]
 
-def modificaRezervare(id, nume, clasa, pret, checkin, lista):
+def modificaRezervare(id, nume, clasa, pret, checkin, lista, undoLista = None, redoLista = None):
     """
     modifica o rezervare dupa id
     :param id: string
@@ -53,6 +59,9 @@ def modificaRezervare(id, nume, clasa, pret, checkin, lista):
     """
     if getById(id, lista) is None:
         raise ValueError("Nu exista nici o rezervare cu id-ul dat.")
+    if undoLista is not None and redoLista is not None:
+        undoLista.append(lista)
+        redoLista.clear()
     listaNoua = []
     for rezervare in lista:
         if getId(rezervare) == id:

@@ -41,7 +41,6 @@ def testDetermPretMaximClasa():
     rezultat = determPretMaximClasa(lista)
 
     assert len(rezultat) == 2
-    print(rezultat["economy"])
     assert rezultat["economy"] == 200
     assert rezultat['economy plus'] == 150
 

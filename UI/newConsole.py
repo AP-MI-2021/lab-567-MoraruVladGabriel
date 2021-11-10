@@ -1,5 +1,7 @@
 from Logic.CRUD import adaugaRezervare, stergeRezervare, modificaRezervare
 from UI.console import showAll
+from Logic.functionalitati import undocmd, redocmd
+
 
 def printMenu():
     print("Comanda help: Cere ajutor.")
@@ -7,21 +9,24 @@ def printMenu():
     print("Comanda delete: Stergere rezervare: id")
     print("Comanda update: Modifica o rezervare: id, nume, clasa(economy/economy plus/business), pret, checkin(da/nu) ")
     print("Comanda showall: Afiseaza toate rezervarile.")
+    print("Comanda undo.")
+    print("Comanda redo")
     print("Comanda stop: Oprire program.")
-
 
 
 def printHelp():
     print(
-        "In aceste meniu comenzile se dau separate prin ; si datele vor fi separate prin , ."
+        "In acest meniu comenzile se dau separate prin ; si datele vor fi separate prin , ."
         "Un exemplu de comanda ar putea fi: add,1,andrei,business,100,da;showall"
     )
 
-def runMenu(lista):
 
+def runMenu(lista):
+    undoLista = []
+    redoLista = []
+    printMenu()
     while True:
-        printMenu()
-        comenzi = input("Introduceti comenzile separate prin ';', iar detaliitle pentru fiecare comanda prin ',': ")
+        comenzi = input("Introduceti comenzile separate prin ';', iar detaliile pentru fiecare comanda prin ',': ")
         if comenzi == "stop":
             break
 
@@ -29,30 +34,44 @@ def runMenu(lista):
 
         for comanda in comenzi:
             comanda = comanda.split(",")
-            lista_comanda = []
+            lst_cmd = []
             for detalii in comanda:
-                lista_comanda.append(detalii)
-            if lista_comanda[0] == "add":
+                lst_cmd.append(detalii)
+            if lst_cmd[0] == "add":
                 try:
-                    pret = float(lista_comanda[4])
-                    lista = adaugaRezervare(lista_comanda[1], lista_comanda[2], lista_comanda[3], pret, lista_comanda[5], lista)
+                    pret = float(lst_cmd[4])
+                    undoLista.append(lista)
+                    redoLista.clear()
+                    lista = adaugaRezervare(lst_cmd[1], lst_cmd[2], lst_cmd[3], pret, lst_cmd[5], lista)
                 except ValueError as ve:
                     print("Erpare: {}".format(ve))
-            elif lista_comanda[0] == "delete":
+            elif lst_cmd[0] == "delete":
                 try:
-                    lista = stergeRezervare(lista_comanda[1], lista)
+                    undoLista.append(lista)
+                    redoLista.clear()
+                    lista = stergeRezervare(lst_cmd[1], lista)
                 except ValueError as ve:
                     print("Eroare: {}".format(ve))
-            elif lista_comanda[0] == "update":
+            elif lst_cmd[0] == "update":
                 try:
-                    lista = modificaRezervare(lista_comanda[1], lista_comanda[2], lista_comanda[3], lista_comanda[4], lista_comanda[5], lista)
+                    undoLista.append(lista)
+                    redoLista.clear()
+                    lista = modificaRezervare(lst_cmd[1], lst_cmd[2], lst_cmd[3], lst_cmd[4], lst_cmd[5], lista)
                 except ValueError as ve:
                     print("Eroare: {}".format(ve))
-            elif lista_comanda[0] == "showall":
+            elif lst_cmd[0] == "showall":
                 showAll(lista)
-            elif lista_comanda[0] == "help":
+            elif lst_cmd[0] == "undo":
+                if len(undoLista) == 0:
+                    print('Nu se poate face undo!')
+                lista = undocmd(lista, undoLista, redoLista)
+            elif lst_cmd[0] == "redo":
+                if len(redoLista) == 0:
+                    print('Nu se poate face redo!')
+                lista = redocmd(lista, undoLista, redoLista)
+            elif lst_cmd[0] == "help":
                 printHelp()
-            elif lista_comanda[0] == "stop":
+            elif lst_cmd[0] == "stop":
                 break
             else:
                 print("Comanda nu este recunoscuta!")
